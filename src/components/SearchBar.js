@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Select from "react-select";
-import { graphql, compose } from "react-apollo";
+import { graphql } from "react-apollo";
 import { allTags } from "../queries/query";
 import MainComponent from "./MainComponent";
 import queryString from "query-string";
@@ -28,28 +28,28 @@ class SearchBar extends Component {
     this.props.history.push(push_link);
   };
 
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   render() {
-    console.log(this.props.data);
-
     if (this.state.run_func) {
-      console.log("inside if");
-
       var data = this.props.data;
-      console.log(this.props.data);
       if (!data.loading) {
         for (var i = 0; i < data.allStories.length; i++) {
+            var tag = this.capitalizeFirstLetter(data.allStories[i].tags);
+
           if (
             typeof cityFromApi[
-              cityFromApi.findIndex(x => x.label == data.allStories[i].tags)
-            ] == "undefined"
+              cityFromApi.findIndex(x => x.label === tag)
+            ] === "undefined"
           ) {
             cityFromApi.push({
-              label: data.allStories[i].tags,
+              label: tag,
               value: data.allStories[i].tags
             });
           }
         }
-        console.log(cityFromApi);
 
         this.setState({
           data_fetched: true,

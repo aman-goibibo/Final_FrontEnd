@@ -23,7 +23,8 @@ class MainComponent extends Component {
               key={story.id}
               storyTitle={story.title}
               subStory={story.subStory}
-            /><h5 className="story-title">{story.title}</h5>
+            />
+            <h5 className="story-title">{story.title}</h5>
           </div>
         );
       });
